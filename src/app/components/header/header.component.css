@@ -1,0 +1,88 @@
+/* Navbar Styling */
+.navbar {
+    background: linear-gradient(135deg, #007bff, #0056b3); /* Gradient background */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 15px 20px;
+  }
+
+  /* Disabled Link Style */
+.nav-link.disabled {
+  pointer-events: none; /* Prevent clicking */
+  opacity: 0.6; /* Make it look disabled */
+  cursor: not-allowed; /* Show not-allowed cursor */
+}
+  
+  /* Brand/Logo */
+  .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff !important;
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-brand i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+  }
+  
+  /* Navbar Links */
+  .navbar-nav {
+    margin-left: auto;
+  }
+  
+  .nav-item {
+    margin: 0 10px;
+  }
+  
+  .nav-link {
+    color: #fff !important;
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .nav-link i {
+    margin-right: 8px;
+    font-size: 1rem;
+  }
+  
+  .nav-link:hover {
+    color: #ffdd57 !important; /* Hover color */
+    transform: translateY(-2px);
+  }
+  
+  /* Toggle Button */
+  .navbar-toggler {
+    border: none;
+    outline: none;
+  }
+  
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  }
+  
+  /* Mobile Navbar */
+  .collapse.show {
+    background: rgba(0, 0, 0, 0.9); /* Dark background for mobile */
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 992px) {
+    .navbar-nav {
+      margin-left: 0;
+    }
+  
+    .nav-item {
+      margin: 10px 0;
+    }
+  
+    .nav-link {
+      justify-content: center;
+    }
+  }

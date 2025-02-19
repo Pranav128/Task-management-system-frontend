@@ -1,0 +1,18 @@
+<div class="session-expired-container">
+  <div class="session-expired-card">
+    <div class="session-expired-header">
+      <h1>Session Expired</h1>
+    </div>
+    <div class="session-expired-content">
+      <p>Your session has expired due to inactivity. Please log in again to continue.</p>
+      <div class="session-expired-actions">
+        <button class="btn btn-login" (click)="navigateToLogin()">
+          <i class="fas fa-sign-in-alt"></i> Log In
+        </button>
+        <button class="btn btn-home" (click)="navigateToHome()">
+          <i class="fas fa-home"></i> Home
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

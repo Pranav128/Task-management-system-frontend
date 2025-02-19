@@ -1,0 +1,78 @@
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-body">
+      <!-- Step 1: Basic Info -->
+      <div *ngIf="step === 1" class="step">
+        <h2 class="mb-4">Step 1: Basic Task Info</h2>
+        <form [formGroup]="taskForm">
+          <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input formControlName="title" class="form-control" placeholder="Enter title">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea formControlName="description" class="form-control" placeholder="Enter description"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Priority</label>
+            <select formControlName="priority" class="form-select">
+              <option value="LOW">Low</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="HIGH">High</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select formControlName="status" class="form-select">
+              <option value="TODO">To Do</option>
+              <option value="IN_PROGRESS">In Progress</option>
+              <option value="DONE">Done</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Due Date</label>
+            <input formControlName="dueDate" type="datetime" class="form-control">
+          </div>
+          <button (click)="nextStep()" class="btn btn-primary">Next</button>
+        </form>
+      </div>
+
+      <!-- Step 2: Assignees -->      
+      <div *ngIf="step === 2" class="step">
+        <h2 class="mb-4">Step 2: Assign Task</h2>
+        <div *ngFor="let user of users" class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [value]="user.id"
+            [checked]="selectedAssignees.includes(user.id)"
+            (change)="onAssigneeSelect(user.id)"
+          />
+          <label class="form-check-label">{{ user.username }}</label>
+        </div>
+        <button (click)="prevStep()" class="btn btn-secondary me-2">Back</button>
+        <button (click)="nextStep()" class="btn btn-primary">Next</button>
+      </div>
+
+     
+      <!-- Step 3: Attachments and Comments -->
+      <div *ngIf="step === 3" class="step">
+        <h2 class="mb-4">Step 3: Attachments and Comments</h2>
+        <div class="mb-3">
+          <label class="form-label">Attachments</label>
+          <input type="file" class="form-control" (change)="onFileSelected($event)" multiple>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Comments</label>
+          <textarea [(ngModel)]="comments" class="form-control" placeholder="Enter comments"></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Enable Notifications</label>
+          <input type="checkbox" [(ngModel)]="notificationsEnabled" class="form-check-input">
+        </div>
+        <button (click)="prevStep()" class="btn btn-secondary me-2">Back</button>
+        <button (click)="submitTask()" class="btn btn-success">Create Task</button>
+      </div>
+    </div>
+  </div>
+</div>
