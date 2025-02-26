@@ -1,0 +1,138 @@
+/* General Styles */
+.dashboard-container {
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .dashboard-header {
+    margin-bottom: 30px;
+  }
+  
+  .dashboard-header h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .dashboard-header p {
+    font-size: 16px;
+    color: #666;
+  }
+  
+  /* Quick Actions */
+  .quick-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+  
+  .quick-actions .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+  }
+  
+  .quick-actions .btn:hover {
+    transform: translateY(-3px);
+  }
+  
+  /* Dashboard Sections */
+  .dashboard-section {
+    margin-bottom: 30px;
+  }
+  
+  .dashboard-section h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  /* Chart Container */
+  .chart-container {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  /* Notifications List */
+  .notifications-list {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .notification-item {
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+  }
+  
+  .notification-item:hover {
+    transform: translateY(-3px);
+  }
+  
+  /* Upcoming Tasks */
+  .upcoming-tasks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+  }
+  
+  .task-item {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+  }
+  
+  .task-item:hover {
+    transform: translateY(-3px);
+  }
+  
+  .task-status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .status-todo { background: #ffc107; color: #333; }
+  .status-in-progress { background: #007bff; color: white; }
+  .status-done { background: #28a745; color: white; }
+  
+  /* Activity Feed */
+  .activity-feed {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .activity-item {
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+  }
+  
+  .activity-item:hover {
+    transform: translateY(-3px);
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }

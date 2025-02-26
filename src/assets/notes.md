@@ -7,3 +7,7 @@
   // inside the subscribe method where you get data from the server
   // this.myDate = data.myDate ? new Date(data.myDate) : null;
 ``` 
+
+ formData.append('createTaskRequest', new Blob([JSON.stringify(createTaskRequest)], { type: 'application/json' }));
+  
+  converting json to formdata 

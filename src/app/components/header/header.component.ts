@@ -6,33 +6,27 @@ import { AuthService } from '../../auth/auth.service';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule,NgIf,RouterModule,RouterLinkActive
-  ],
+  imports: [CommonModule, NgIf, RouterModule, RouterLinkActive],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
 })
 export class HeaderComponent {
   isNavbarOpen: boolean = false;
-  isLoggedIn():boolean{
+  isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
   toggleNavbar() {
     this.isNavbarOpen = !this.isNavbarOpen;
   }
 
-  constructor(private router:Router,private authService:AuthService){}
+  constructor(private router: Router, private authService: AuthService) {}
 
   navigateTo(route: string) {
     console.log(`Navigating to ${route}`);
     this.router.navigate([route]);
-    // Add your navigation logic here (e.g., using Angular Router)
   }
 
   logout(): void {
     this.authService.logout();
-  }
-  
-  login():void{
-    this.router.navigate(['/login']); // Redirect to the login page
   }
 }

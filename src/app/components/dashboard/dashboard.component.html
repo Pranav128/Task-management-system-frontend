@@ -1,0 +1,58 @@
+<div class="dashboard-container">
+    <!-- Header -->
+    <div class="dashboard-header">
+      <h1>Welcome, {{ currentUser?.username }}!</h1>
+      <p>Here's an overview of your work.</p>
+    </div>
+  
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <button class="btn btn-primary" (click)="createNewTask()">➕ Create New Task</button>
+      <button class="btn btn-secondary" (click)="viewAllTasks()">📋 View All Tasks</button>
+    </div>
+  
+    <!-- Task Status Overview -->
+    <div class="dashboard-section">
+      <h2>Task Status Overview</h2>
+      <div class="chart-container">
+        <canvas id="taskStatusChart"></canvas>
+      </div>
+    </div>
+  
+    <!-- Notifications -->
+    <div class="dashboard-section">
+      <h2>Notifications</h2>
+      <div class="notifications-list">
+        <div *ngFor="let notification of notifications" class="notification-item">
+          <p>{{ notification.message }}</p>
+          <small>{{ notification.createdAt | date: 'medium' }}</small>
+        </div>
+        <p *ngIf="notifications.length === 0">No new notifications.</p>
+      </div>
+    </div>
+  
+    <!-- Upcoming Tasks -->
+    <div class="dashboard-section">
+      <h2>Upcoming Tasks</h2>
+      <div class="upcoming-tasks">
+        <div *ngFor="let task of upcomingTasks" class="task-item">
+          <h4>{{ task.title }}</h4>
+          <p>Due: {{ task.dueDate | date: 'medium' }}</p>
+          <span class="task-status" [ngClass]="getStatusClass(task.status)">{{ task.status }}</span>
+        </div>
+        <p *ngIf="upcomingTasks.length === 0">No upcoming tasks.</p>
+      </div>
+    </div>
+  
+    <!-- Activity Feed -->
+    <div class="dashboard-section">
+      <h2>Recent Activity</h2>
+      <div class="activity-feed">
+        <div *ngFor="let activity of recentActivity" class="activity-item">
+          <p><strong>{{ activity.user }}</strong> {{ activity.action }} <em>{{ activity.target }}</em></p>
+          <small>{{ activity.timestamp | date: 'medium' }}</small>
+        </div>
+        <p *ngIf="recentActivity.length === 0">No recent activity.</p>
+      </div>
+    </div>
+  </div>

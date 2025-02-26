@@ -1,4 +1,6 @@
-export interface Task {
+import { CommentResponse } from './comment';
+
+export interface TaskResponse {
     id?: number;
     title: string;
     description: string;
@@ -7,5 +9,5 @@ export interface Task {
     dueDate: string|null;
     createdById:string;
     assignees: string[];
-    comments:string[];
+    comments:CommentResponse[];
 }
