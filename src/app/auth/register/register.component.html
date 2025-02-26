@@ -1,12 +1,15 @@
 <div class="signup-container">
   <div class="signup-card">
-    
     <div class="signup-header">
       <h2>Create Your Account</h2>
       <p>Join us to manage your tasks efficiently.</p>
     </div>
 
-    <form [formGroup]="signupForm" (ngSubmit)="onSignupSubmit()" class="signup-form">
+    <form
+      [formGroup]="signupForm"
+      (ngSubmit)="onSignupSubmit()"
+      class="signup-form"
+    >
       <!-- Username -->
       <div class="form-group">
         <label for="username">Username</label>
@@ -20,9 +23,19 @@
             placeholder="Enter your username"
           />
         </div>
-        <div *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched" class="error-message">
-          <span *ngIf="signupForm.get('username')?.errors?.['required']">Username is required.</span>
-          <span *ngIf="signupForm.get('username')?.errors?.['minlength']">Username must be at least 3 characters.</span>
+        <div
+          *ngIf="
+            signupForm.get('username')?.invalid &&
+            signupForm.get('username')?.touched
+          "
+          class="error-message"
+        >
+          <span *ngIf="signupForm.get('username')?.errors?.['required']"
+            >Username is required.</span
+          >
+          <span *ngIf="signupForm.get('username')?.errors?.['minlength']"
+            >Username must be at least 3 characters.</span
+          >
         </div>
       </div>
 
@@ -39,9 +52,18 @@
             placeholder="Enter your email"
           />
         </div>
-        <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="error-message">
-          <span *ngIf="signupForm.get('email')?.errors?.['required']">Email is required.</span>
-          <span *ngIf="signupForm.get('email')?.errors?.['email']">Please enter a valid email.</span>
+        <div
+          *ngIf="
+            signupForm.get('email')?.invalid && signupForm.get('email')?.touched
+          "
+          class="error-message"
+        >
+          <span *ngIf="signupForm.get('email')?.errors?.['required']"
+            >Email is required.</span
+          >
+          <span *ngIf="signupForm.get('email')?.errors?.['email']"
+            >Please enter a valid email.</span
+          >
         </div>
       </div>
 
@@ -57,13 +79,26 @@
             class="form-control"
             placeholder="Enter your password"
           />
-          <span class="input-group-text" (click)="togglePasswordVisibility('password')">
+          <span
+            class="input-group-text"
+            (click)="togglePasswordVisibility('password')"
+          >
             <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
           </span>
         </div>
-        <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="error-message">
-          <span *ngIf="signupForm.get('password')?.errors?.['required']">Password is required.</span>
-          <span *ngIf="signupForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</span>
+        <div
+          *ngIf="
+            signupForm.get('password')?.invalid &&
+            signupForm.get('password')?.touched
+          "
+          class="error-message"
+        >
+          <span *ngIf="signupForm.get('password')?.errors?.['required']"
+            >Password is required.</span
+          >
+          <span *ngIf="signupForm.get('password')?.errors?.['minlength']"
+            >Password must be at least 6 characters.</span
+          >
         </div>
       </div>
 
@@ -79,49 +114,75 @@
             class="form-control"
             placeholder="Confirm your password"
           />
-          <span class="input-group-text" (click)="togglePasswordVisibility('confirmPassword')">
-            <i [class]="showConfirmPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+          <span
+            class="input-group-text"
+            (click)="togglePasswordVisibility('confirmPassword')"
+          >
+            <i
+              [class]="showConfirmPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"
+            ></i>
           </span>
         </div>
-        <div *ngIf="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched" class="error-message">
-          <span *ngIf="signupForm.get('confirmPassword')?.errors?.['required']">Confirm Password is required.</span>
+        <div
+          *ngIf="
+            signupForm.get('confirmPassword')?.invalid &&
+            signupForm.get('confirmPassword')?.touched
+          "
+          class="error-message"
+        >
+          <span *ngIf="signupForm.get('confirmPassword')?.errors?.['required']"
+            >Confirm Password is required.</span
+          >
         </div>
-        <div *ngIf="signupForm.errors?.['mismatch'] && signupForm.get('confirmPassword')?.touched" class="error-message">
+        <div
+          *ngIf="signupForm.errors?.['mismatch'] && signupForm.get('confirmPassword')?.touched"
+          class="error-message"
+        >
           Passwords do not match.
         </div>
       </div>
 
       <!-- Gender -->
       <div class="form-group">
-      <label for="gender">Gender</label>
-      <div class="input-group">
-        <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
-        <div class="form-control d-flex gap-3">
-          <div class="form-check">
-            <input
-              type="radio"
-              id="male"
-              formControlName="gender"
-              class="form-check-input"
-              value="Male"
-            />
-            <label for="male" class="form-check-label">Male</label>
-          </div>
-          <div class="form-check">
-            <input
-              type="radio"
-              id="female"
-              formControlName="gender"
-              class="form-check-input"
-              value="Female"
-            />
-            <label for="female" class="form-check-label">Female</label>
+        <label for="gender">Gender</label>
+        <div class="input-group">
+          <span class="input-group-text"
+            ><i class="fas fa-venus-mars"></i
+          ></span>
+          <div class="form-control d-flex gap-3">
+            <div class="form-check">
+              <input
+                type="radio"
+                id="male"
+                formControlName="gender"
+                class="form-check-input"
+                value="Male"
+              />
+              <label for="male" class="form-check-label">Male</label>
+            </div>
+            <div class="form-check">
+              <input
+                type="radio"
+                id="female"
+                formControlName="gender"
+                class="form-check-input"
+                value="Female"
+              />
+              <label for="female" class="form-check-label">Female</label>
+            </div>
           </div>
         </div>
-      </div>
-      <div *ngIf="signupForm.get('gender')?.invalid && signupForm.get('gender')?.touched" class="error-message">
-        <span *ngIf="signupForm.get('gender')?.errors?.['required']">Please select a gender.</span>
-      </div>
+        <div
+          *ngIf="
+            signupForm.get('gender')?.invalid &&
+            signupForm.get('gender')?.touched
+          "
+          class="error-message"
+        >
+          <span *ngIf="signupForm.get('gender')?.errors?.['required']"
+            >Please select a gender.</span
+          >
+        </div>
       </div>
 
       <!-- DOB -->
@@ -137,20 +198,31 @@
             placeholder="Enter your date of birth"
           />
         </div>
-        <div *ngIf="signupForm.get('dob')?.invalid && signupForm.get('dob')?.touched" class="error-message">
-          <span *ngIf="signupForm.get('dob')?.errors?.['required']">DOB is required.</span>
-        </div>  
+        <div
+          *ngIf="
+            signupForm.get('dob')?.invalid && signupForm.get('dob')?.touched
+          "
+          class="error-message"
+        >
+          <span *ngIf="signupForm.get('dob')?.errors?.['required']"
+            >DOB is required.</span
+          >
+        </div>
       </div>
 
-
       <!-- Submit Button -->
-      <button type="submit" class="btn btn-primary btn-block" [disabled]="signupForm.invalid">Sign Up</button>
+      <button
+        type="submit"
+        class="btn btn-primary btn-block"
+        [disabled]="signupForm.invalid"
+      >
+        Sign Up
+      </button>
 
       <!-- Login Link -->
       <div class="login-link">
-        Already have an account? <a (click)="loginPage()">Log in</a>
+        Already have an account? <a routerLink="/signup">Log in</a>
       </div>
-
     </form>
   </div>
 </div>

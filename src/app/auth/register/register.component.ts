@@ -1,31 +1,52 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule,CommonModule, ReactiveFormsModule, FormsModule, HttpClientModule,RouterModule],
+  imports: [
+    FormsModule,
+    CommonModule,
+    ReactiveFormsModule,
+    RouterLink,
+    FormsModule,
+    HttpClientModule,
+    RouterModule,
+  ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrl: './register.component.css',
 })
-export class RegisterComponent {  
+export class RegisterComponent {
   signupForm: FormGroup;
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
-  constructor(private fb: FormBuilder,private authService:AuthService, private router: Router) {
-    this.signupForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]],
-      dob: ['', [Validators.required]],
-      gender: ['', Validators.required],
-    }, { validator: this.passwordMatchValidator });
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.signupForm = this.fb.group(
+      {
+        username: ['', [Validators.required, Validators.minLength(3)]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', [Validators.required]],
+        dob: ['', [Validators.required]],
+        gender: ['', Validators.required],
+      },
+      { validator: this.passwordMatchValidator }
+    );
   }
 
   // Custom validator to check if passwords match
@@ -50,13 +71,12 @@ export class RegisterComponent {
       return;
     }
 
-    
     //Handle date for backend
     const formData = this.signupForm.value;
     formData.dob = formData.dob ? formData.dob : null;
-    
+
     console.log(formData.dob);
-    
+
     console.log('Signup Submitted', this.signupForm.value);
     // Add your signup logic here (e.g., call an API)
     this.authService.register(this.signupForm.value).subscribe({
@@ -66,14 +86,12 @@ export class RegisterComponent {
         this.signupForm.reset();
       },
       error: (err) => {
-        console.log(err);        
-        window.alert('Registration failed. '+err.error.resp+" Please try again!!");
+        console.log(err);
+        window.alert(
+          'Registration failed. ' + err.error.resp + ' Please try again!!'
+        );
         this.signupForm.reset();
-      }
+      },
     });
-  }
-
-  loginPage(){
-    this.router.navigate(['/login']);
   }
 }

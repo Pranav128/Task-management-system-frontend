@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [],
   templateUrl: './session.component.html',
-  styleUrl: './session.component.css'
+  styleUrl: './session.component.css',
 })
 export class SessionComponent {
   constructor(private router: Router) {}

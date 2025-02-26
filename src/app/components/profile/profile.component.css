@@ -104,6 +104,7 @@
   font-size: 1rem;
   border: 1px solid #ddd;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
 }
 
 .profile-form .form-control:focus {
@@ -130,119 +131,33 @@
   cursor: not-allowed;
 }
 
-/* Avatar Container */
-.avatar-container {
-  display: flex;
-  justify-content: center;
+/* Password Input Container */
+.password-input {
   position: relative;
-  margin-bottom: 20px;
 }
 
-.avatar {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.avatar:hover {
-  transform: scale(1.1);
-}
-
-.avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.upload-icon {
-  padding-left: 6px;
+.password-input .toggle-password {
   position: absolute;
-  bottom: 10px;
   right: 10px;
-  width: 30px;
-  height: 30px;
-  background: #007bff;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
   cursor: pointer;
-  font-size: 16px;
-  border: 2px solid white;
-  transition: background 0.3s ease, transform 0.3s ease;
+  color: #777;
+  transition: color 0.3s ease;
 }
 
-.upload-icon:hover {
-  background: #0056b3;
-  transform: scale(1.1);
+.password-input .toggle-password:hover {
+  color: #333;
 }
 
-/* File Input */
-input[type='file'] {
-  display: none;
-}
-
-/* URL Upload */
-.url-upload {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-/* File Selector */
-.file-selector {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.file-options {
-  display: flex;
-  gap: 10px;
-}
-
-.btn-upload,
-.btn-drive,
-.btn-remove {
-  padding: 8px 16px;
-  border-radius: 25px;
-  font-size: 0.9rem;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.btn-upload {
-  background: #007bff;
-  color: #fff;
-}
-
-.btn-upload:hover {
-  background: #0056b3;
-  transform: scale(1.05);
-}
-
-.btn-drive {
-  background: #34a853;
-  color: #fff;
-}
-
-.btn-drive:hover {
-  background: #2a8c3f;
-  transform: scale(1.05);
-}
-
-.btn-remove {
-  background: #dc3545;
-  color: #fff;
-}
-
-.btn-remove:hover {
-  background: #c82333;
-  transform: scale(1.05);
+/* Validation Error Messages */
+.invalid-feedback {
+  color: #dc3545;
+  font-size: 0.875em;
+  margin-top: 5px;
+  display: block; /* Ensure error messages are displayed as block elements */
 }
 
 /* Avatar Grid */
@@ -276,4 +191,24 @@ input[type='file'] {
 
 .avatar-option:hover {
   border-color: #0056b3;
+}
+
+/* Modern Toggle Button */
+.toggle-password {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.toggle-password:hover {
+  background: #0056b3;
+  transform: scale(1.1);
 }

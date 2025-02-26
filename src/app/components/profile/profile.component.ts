@@ -1,7 +1,13 @@
 import { CommonModule, DatePipe, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Observable } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { User } from '../../models/user';
 import { UserServiceService } from '../../services/user-service.service';
@@ -9,36 +15,48 @@ import { UserServiceService } from '../../services/user-service.service';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [FormsModule,ReactiveFormsModule,DatePipe,CommonModule,NgIf],
+  imports: [FormsModule, ReactiveFormsModule, DatePipe, CommonModule, NgIf],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  styleUrl: './profile.component.css',
 })
 export class ProfileComponent implements OnInit {
   isEditMode: boolean = false;
   profileForm!: FormGroup;
   avatars: string[] = [];
   selectedAvatar: string | null = null;
+  user$: Observable<User | null>;
   user: User = {
     id: 0,
     username: '',
     email: '',
-    gender:'',
-    dob:'',
-    avatar: 'assets/avatars/default-avatar.jpg' // Default avatar
+    gender: '',
+    dob: '',
+    avatar: 'assets/avatars/default-avatar.jpg', // Default avatar
   };
+
+  showCurrentPassword: boolean = false;
+  showNewPassword: boolean = false;
+  showConfirmPassword: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private userService: UserServiceService,
-    private authService: AuthService,
-    private route: ActivatedRoute
-  ) {} 
-  
+    private authService: AuthService
+  ) {
+    this.user$ = this.authService.getUser();
+  }
+
   ngOnInit(): void {
-    const userId:string = this.authService.getLoggedUser();// Get user ID from route
-    
-    this.fetchUserData(userId);
-    
+    this.user$.subscribe((user) => {
+      if (user) {
+        this.user = user;
+        this.selectedAvatar = user.avatar;
+      } else {
+        console.warn('User is null, cannot set CreatedById');
+      }
+    });
+    console.log('User after onInit profile: ' + this.user);
+
     // Load predefined avatars
     this.avatars = [
       'assets/avatars/avatar1.jpg',
@@ -46,32 +64,26 @@ export class ProfileComponent implements OnInit {
       'assets/avatars/avatar3.jpg',
       'assets/avatars/avatar4.jpg',
       'assets/avatars/avatar5.jpg',
-      'assets/avatars/avatar6.jpg'
+      'assets/avatars/avatar6.jpg',
     ];
 
-    this.profileForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      currentPassword: ['', Validators.minLength(6)],
-      newPassword: ['', [ Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required]
-    }, { validator: this.passwordMatchValidator });
-  }
-
-  fetchUserData(userId: string): void {
-    this.userService.getUserById(userId).subscribe(
-      (user) => {
-        console.log(user);        
-        this.user = user;
-        console.log(user);
-        this.selectedAvatar = user.avatar;
-        console.log(this.selectedAvatar);
-        this.profileForm.patchValue({
-          email: user.email
-        });
+    // Initialize the form with validators
+    this.profileForm = this.fb.group(
+      {
+        email: [{ value: this.user.email, disabled: true }], // Email is read-only
+        currentPassword: ['', Validators.required, Validators.minLength(8)], // Current password is required
+        newPassword: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(
+              /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+            ),
+          ],
+        ], // New password is optional
+        confirmPassword: [''],
       },
-      (error) => {
-        console.error('Failed to fetch user data:', error);
-      }
+      { validator: this.passwordMatchValidator }
     );
   }
 
@@ -87,7 +99,10 @@ export class ProfileComponent implements OnInit {
     this.isEditMode = !this.isEditMode;
     if (!this.isEditMode) {
       this.profileForm.reset({
-        email: this.user.email
+        email: this.user.email,
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: '',
       });
       this.selectedAvatar = null;
     }
@@ -95,37 +110,54 @@ export class ProfileComponent implements OnInit {
 
   // Handle form submission
   onSubmit(): void {
+    // if (this.profileForm.invalid) {
+    //   return;
+    // }
     if (this.profileForm.invalid) {
+      this.profileForm.markAllAsTouched();
       return;
     }
 
-    const userId = this.authService.getLoggedUser();
-  
-    // Update email
-    this.user.email = this.profileForm.value.email;
+    const userId = this.authService.getUserId();
+    const username = this.authService.getUsername();
 
-    // Upload avatar if a file is selected
-    if (this.selectedAvatar) {
-      this.userService.updateAvatar(userId, this.selectedAvatar).subscribe(
-        (user) => {
-          this.user = user;
-          this.selectedAvatar = user.avatar;
-          console.log('Avatar updated:', user);
-        },
-        (error) => {
-          console.error('Failed to update avatar:', error);
-        }
-      );
-    }
-    
-    // Add logic to update password (if needed)
-    console.log('Profile updated:', this.user);
+    // Prepare the payload
+    const payload = {
+      avatar: this.selectedAvatar || this.user.avatar, // Use selected avatar or keep the existing one
+      currentPassword: this.profileForm.value.currentPassword,
+      newPassword: this.profileForm.value.newPassword,
+    };
 
-    // Switch back to view mode
-    this.toggleEditMode();
+    // Send a single request to update profile
+    this.userService.updateProfile(username, payload).subscribe({
+      next: (user) => {
+        this.user = user;
+        this.selectedAvatar = user.avatar;
+        console.log('Profile updated:', this.user);
+        alert('Profile updated successfully!');
+        this.toggleEditMode(); // Switch back to view mode
+      },
+      error: (error) => {
+        console.error('Failed to update profile:', error);
+        alert('Failed to update profile. Please try again.');
+      },
+    });
   }
 
   selectAvatar(avatarUrl: string): void {
     this.selectedAvatar = avatarUrl;
+  }
+
+  // Toggle password visibility
+  togglePasswordVisibility(
+    field: 'currentPassword' | 'newPassword' | 'confirmPassword'
+  ): void {
+    if (field === 'currentPassword') {
+      this.showCurrentPassword = !this.showCurrentPassword;
+    } else if (field === 'newPassword') {
+      this.showNewPassword = !this.showNewPassword;
+    } else {
+      this.showConfirmPassword = !this.showConfirmPassword;
+    }
   }
 }

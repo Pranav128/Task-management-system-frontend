@@ -5,30 +5,31 @@ import { environment } from '../../env/environment';
 import { User } from '../models/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserServiceService {
-
-  private baseUrl=environment.apiUrl+"/users";
+  private baseUrl = environment.apiUrl + '/users';
   constructor(private http: HttpClient) {}
 
+  //get user by UserId
   getUserById(username: string): Observable<User> {
     return this.http.get<User>(`${this.baseUrl}/${username}`).pipe(
-      map(user => ({
+      map((user) => ({
         ...user,
-        birthDate: user.dob ? new Date(user.dob) : null // Convert LocalDate to Date
+        birthDate: user.dob ? new Date(user.dob) : null, // Convert LocalDate to Date
       }))
     );
   }
 
-  getAvatarUrl(username: string):  Observable<any>  {
-    return this.http.get<any>(`${this.baseUrl}/${username}/avatar`);
-  }
-  
-  updateAvatar(username: string, avtar: string): Observable<User> {
-    return this.http.put<User>(`${this.baseUrl}/${username}/avatar`, avtar);
+  //update user profile
+  updateProfile(
+    username: string | null,
+    payload: { avatar: string; currentPassword: any; newPassword: any }
+  ): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/${username}/profile`, payload);
   }
 
+  //get all users
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.baseUrl); // Assuming you have a users endpoint
   }

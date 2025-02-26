@@ -14,7 +14,7 @@
               id="email"
               class="form-control"
               placeholder="Enter your email"
-              [(ngModel)]="credentials.username"
+              [(ngModel)]="username"
               name="loginEmail"
               required
             />
@@ -29,9 +29,10 @@
               id="password"
               class="form-control"
               placeholder="Enter your password"
-              [(ngModel)]="credentials.password"
+              [(ngModel)]="password"
               name="loginPassword"
               required
+              autocomplete=""
             />
             <span class="input-group-text" (click)="togglePasswordVisibility()">
               <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
@@ -50,8 +51,8 @@
         </div>
         <button type="submit" class="btn btn-primary btn-block">Login</button>
         <div class="login-footer">
-          <a href="#" class="forgot-password">Forgot password?</a>
-          <p>Don't have an account? <a (click)="goToSignup()" class="signup-link">Sign up</a></p>
+          <a routerLink="/forgot-password" class="forgot-password">Forgot password?</a>
+          <p>Don't have an account? <a routerLink="/signup" class="signup-link">Sign up</a></p>
         </div>
       </form>
     </div>
