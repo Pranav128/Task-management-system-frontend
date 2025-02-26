@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-session',
-  standalone: true,
-  imports: [],
-  templateUrl: './session.component.html',
-  styleUrl: './session.component.css',
+    selector: 'app-session',
+    imports: [],
+    templateUrl: './session.component.html',
+    styleUrl: './session.component.css'
 })
 export class SessionComponent {
   constructor(private router: Router) {}

@@ -4,11 +4,10 @@ import { Router, RouterLinkActive, RouterModule } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [CommonModule, NgIf, RouterModule, RouterLinkActive],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
+    selector: 'app-header',
+    imports: [CommonModule, NgIf, RouterModule, RouterLinkActive],
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.css'
 })
 export class HeaderComponent {
   isNavbarOpen: boolean = false;

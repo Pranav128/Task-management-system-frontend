@@ -6,11 +6,10 @@ import { SessionService } from '../../services/session.service';
 import { AuthService } from '../auth.service';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [FormsModule, CommonModule, RouterLink],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+    selector: 'app-login',
+    imports: [FormsModule, CommonModule, RouterLink],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.css'
 })
 export class LoginComponent {
   username: string = '';
@@ -44,7 +43,7 @@ export class LoginComponent {
         this.authService.fetchUserDetails(this.username).subscribe((user) => {
           console.log('User details fetched:', user);
         });
-        this.router.navigate(['/tasks']);
+        this.router.navigate(['/dashboard']);
       },
       (error) => {
         console.error('Login failed', error);

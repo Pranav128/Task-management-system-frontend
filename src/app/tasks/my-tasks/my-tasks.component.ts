@@ -11,11 +11,10 @@ import { TaskService } from '../task.service';
 import { NotificationService } from '../notification.service';
 
 @Component({
-  selector: 'app-my-tasks',
-  standalone: true,
-  imports: [NgIf, DatePipe, NgFor, NgClass, FormsModule],
-  templateUrl: './my-tasks.component.html',
-  styleUrl: './my-tasks.component.css',
+    selector: 'app-my-tasks',
+    imports: [NgIf, DatePipe, NgFor, NgClass, FormsModule],
+    templateUrl: './my-tasks.component.html',
+    styleUrl: './my-tasks.component.css'
 })
 export class MyTasksComponent implements OnInit {
   tasks: TaskResponse[] = [];

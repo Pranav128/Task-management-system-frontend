@@ -11,11 +11,10 @@ import { NotificationService } from '../notification.service';
 import { TaskService } from '../task.service';
 
 @Component({
-  selector: 'app-task-detail',
-  standalone: true,
-  imports: [ReactiveFormsModule, NgIf, FormsModule, NgFor, DatePipe],
-  templateUrl: './task-detail.component.html',
-  styleUrls: ['./task-detail.component.css'],
+    selector: 'app-task-detail',
+    imports: [ReactiveFormsModule, NgIf, FormsModule, NgFor, DatePipe],
+    templateUrl: './task-detail.component.html',
+    styleUrls: ['./task-detail.component.css']
 })
 export class TaskDetailComponent implements OnInit {
   taskId: string = '';

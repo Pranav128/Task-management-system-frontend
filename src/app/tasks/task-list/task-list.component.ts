@@ -6,11 +6,10 @@ import { TaskResponse } from '../../models/task-response';
 import { TaskService } from '../task.service';
 
 @Component({
-  selector: 'app-task-list',
-  standalone: true,
-  imports: [NgIf, DatePipe, NgFor, NgClass, FormsModule],
-  templateUrl: './task-list.component.html',
-  styleUrl: './task-list.component.css',
+    selector: 'app-task-list',
+    imports: [NgIf, DatePipe, NgFor, NgClass, FormsModule],
+    templateUrl: './task-list.component.html',
+    styleUrl: './task-list.component.css'
 })
 export class TaskListComponent implements OnInit {
   tasks: TaskResponse[] = [];

@@ -33,4 +33,9 @@ export class UserServiceService {
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.baseUrl); // Assuming you have a users endpoint
   }
+
+  //getAll comments
+  getCommentsByUserId(userId:number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${userId}/comments`); // Assuming you have a users endpoint
+  }
 }

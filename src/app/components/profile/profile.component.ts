@@ -13,11 +13,10 @@ import { User } from '../../models/user';
 import { UserServiceService } from '../../services/user-service.service';
 
 @Component({
-  selector: 'app-profile',
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, DatePipe, CommonModule, NgIf],
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css',
+    selector: 'app-profile',
+    imports: [FormsModule, ReactiveFormsModule, DatePipe, CommonModule, NgIf],
+    templateUrl: './profile.component.html',
+    styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit {
   isEditMode: boolean = false;

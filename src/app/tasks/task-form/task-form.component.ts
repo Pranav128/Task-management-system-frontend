@@ -23,18 +23,17 @@ import { UserServiceService } from '../../services/user-service.service';
 import { TaskService } from '../task.service';
 
 @Component({
-  selector: 'app-task-form',
-  standalone: true,
-  imports: [
-    DragDropModule,
-    CommonModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    MatCardModule,
-    FormsModule,
-  ],
-  templateUrl: './task-form.component.html',
-  styleUrl: './task-form.component.css',
+    selector: 'app-task-form',
+    imports: [
+        DragDropModule,
+        CommonModule,
+        ReactiveFormsModule,
+        MatCardModule,
+        MatCardModule,
+        FormsModule,
+    ],
+    templateUrl: './task-form.component.html',
+    styleUrl: './task-form.component.css'
 })
 export class TaskFormComponent implements OnInit {
   step = 1;

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
@@ -12,23 +12,21 @@ import { Router, RouterLink, RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
-  selector: 'app-register',
-  standalone: true,
-  imports: [
-    FormsModule,
-    CommonModule,
-    ReactiveFormsModule,
-    RouterLink,
-    FormsModule,
-    
-// TODO: `HttpClientModule` should not be imported into a component directly.
-// Please refactor the code to add `provideHttpClient()` call to the provider list in the
-// application bootstrap logic and remove the `HttpClientModule` import from this component.
-HttpClientModule,
-    RouterModule,
-  ],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css',
+    selector: 'app-register',
+    imports: [
+        FormsModule,
+        CommonModule,
+        ReactiveFormsModule,
+        RouterLink,
+        FormsModule,
+        // TODO: `HttpClientModule` should not be imported into a component directly.
+        // Please refactor the code to add `provideHttpClient()` call to the provider list in the
+        // application bootstrap logic and remove the `HttpClientModule` import from this component.
+        HttpClientModule,
+        RouterModule,
+    ],
+    templateUrl: './register.component.html',
+    styleUrl: './register.component.css'
 })
 export class RegisterComponent {
   signupForm: FormGroup;

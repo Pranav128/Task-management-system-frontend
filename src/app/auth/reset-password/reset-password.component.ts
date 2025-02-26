@@ -10,11 +10,10 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-reset-password',
-  standalone: true,
-  imports: [ReactiveFormsModule, NgClass, NgIf], // Import ReactiveFormsModule
-  templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.css'],
+    selector: 'app-reset-password',
+    imports: [ReactiveFormsModule, NgClass, NgIf], // Import ReactiveFormsModule
+    templateUrl: './reset-password.component.html',
+    styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent {
   resetForm: FormGroup; // Define the form group

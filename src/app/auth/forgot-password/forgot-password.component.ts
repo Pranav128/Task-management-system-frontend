@@ -12,11 +12,10 @@ import { Router } from '@angular/router';
 import { environment } from '../../../env/environment';
 
 @Component({
-  selector: 'app-forgot-password',
-  standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, NgClass, NgIf],
-  templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.css'],
+    selector: 'app-forgot-password',
+    imports: [ReactiveFormsModule, FormsModule, NgClass, NgIf],
+    templateUrl: './forgot-password.component.html',
+    styleUrls: ['./forgot-password.component.css']
 })
 export class ForgotPasswordComponent {
   forgotPasswordForm: FormGroup;
