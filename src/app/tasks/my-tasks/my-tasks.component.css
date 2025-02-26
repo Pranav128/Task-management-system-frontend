@@ -152,6 +152,75 @@
   border-color: #007bff;
 }
 
+/* Notification Icon */
+.notification-icon {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #007bff;
+  transition: color 0.3s ease;
+  z-index: 1000; /* Ensure it's above other elements */
+}
+
+.notification-icon:hover {
+  color: #0056b3;
+}
+
+.notification-count {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+/* Notification Panel */
+
+.notification-panel {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  width: 300px;
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 1000; /* Ensure it's above other elements */
+}
+
+.notification-tile {
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.notification-tile:hover {
+  transform: translateY(-3px);
+}
+
+.notification-tile p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.notification-tile small {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+}
+
 /* Animation for Task Cards */
 @keyframes fadeIn {
   from {
@@ -166,4 +235,9 @@
 
 .task-card {
   animation: fadeIn 0.5s ease;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }

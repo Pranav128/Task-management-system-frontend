@@ -13,3 +13,75 @@
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+/* Comment section styles */
+.comment-section {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  background-color: #f9f9f9;
+}
+
+.comment-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment-item p {
+  margin: 0;
+  flex-grow: 1;
+}
+
+.comment-item button {
+  margin-left: 10px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.btn-outline-primary {
+  margin-top: 10px;
+}
+
+/* User list styles */
+.user-list {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  min-height: 200px;
+  background-color: #f9f9f9;
+}
+
+.user-item {
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+}
+
+.user-item:hover {
+  background-color: #f1f1f1;
+}
+
+/* Arrow buttons */
+.d-grid.gap-2 {
+  gap: 10px;
+}
+
+/* Disabled button styles */
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+

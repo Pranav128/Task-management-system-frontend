@@ -1,4 +1,19 @@
 <div class="container mt-5">
+  <!-- Notification Icon -->
+  <div class="notification-icon" (click)="toggleNotifications()">
+    <i class="fas fa-bell"></i>
+    <span class="notification-count" *ngIf="notifications.length > 0">{{ notifications.length }}</span>
+  </div>
+
+  <!-- Notification Panel -->
+  <div class="notification-panel" *ngIf="showNotifications">
+    <div *ngFor="let notification of notifications" class="notification-tile">
+      <p>{{ notification.message }}</p>
+      <small>{{ notification.createdAt | date: 'medium' }}</small>
+      <small>{{ notification.username }}</small>
+    </div>
+  </div>
+
   <!-- Search Bar -->
   <div class="mb-4 search-bar">
     <input
@@ -37,10 +52,10 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
               <strong>Due Date:</strong>
-              {{ task.dueDate | date : "mediumDate" }}
+              {{ task.dueDate | date: 'mediumDate' }}
             </li>
             <li class="list-group-item">
-              <strong>Assignees:</strong> {{ task.assignees.join(", ") }}
+              <strong>Assignees:</strong> {{ task.assignees.join(', ') }}
             </li>
             <li class="list-group-item">
               <strong>Created By:</strong> {{ task.createdById }}
@@ -76,10 +91,7 @@
             <h6>Comments:</h6>
             <ul class="list-group">
               <li *ngFor="let comment of task.comments" class="list-group-item">
-                <p>
-                  <strong>{{ comment.createdBy }}</strong
-                  >: {{ comment.comment }}
-                </p>
+                {{ comment }}
               </li>
             </ul>
           </div>

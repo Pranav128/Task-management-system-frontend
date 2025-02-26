@@ -1,1 +1,150 @@
-<p>task-detail works!</p>
+<div class="task-detail-container">
+  <!-- Notification Icon -->
+  <div class="notification-icon" (click)="toggleNotifications()">
+    <i class="fas fa-bell"></i>
+    <span class="notification-count" *ngIf="notifications.length > 0">{{
+      notifications.length
+    }}</span>
+  </div>
+
+  <!-- Notification Panel -->
+  <div class="notification-panel" *ngIf="showNotifications">
+    <div *ngFor="let notification of notifications" class="notification-tile">
+      <p>{{ notification.message }}</p>
+      <small>{{ notification.createdAt | date : "medium" }}</small>
+      <small>{{ notification.username }}</small>
+    </div>
+  </div>
+
+  <!-- Task Header -->
+  <div class="task-header">
+    <h2 class="task-title">
+      {{ task.title }}
+      <i class="fas fa-pencil-alt edit-icon" (click)="editTitle()"></i>
+    </h2>
+  </div>
+
+  <!-- Task Details -->
+  <div class="task-details">
+    <div class="detail-item">
+      <label>Status:</label>
+      <select [(ngModel)]="task.status" class="form-control">
+        <option *ngFor="let status of statusOptions" [value]="status">
+          {{ status }}
+        </option>
+      </select>
+    </div>
+    <div class="detail-item">
+      <label>Priority:</label>
+      <select [(ngModel)]="task.priority" class="form-control">
+        <option *ngFor="let priority of priorityOptions" [value]="priority">
+          {{ priority }}
+        </option>
+      </select>
+    </div>
+    <div class="detail-item">
+      <label>Due Date:</label>
+      <input
+        type="datetime-local"
+        [(ngModel)]="task.dueDate"
+        class="form-control"
+      />
+    </div>
+  </div>
+
+  <!-- Assignee's -->
+  <div class="assignees-container">
+    <label>Assignees:</label>
+    <div class="assignees-list">
+      <span *ngFor="let assignee of task.assignees" class="assignee-tag"
+        >&#64;{{ assignee }}</span
+      >
+    </div>
+    <select
+      [(ngModel)]="newAssignee"
+      class="form-control"
+      (change)="addAssignee()"
+    >
+      <option value="" disabled>Select an assignee</option>
+      <option *ngFor="let user of users" [value]="user.username">
+        &#64;{{ user.username }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Task Description -->
+  <div class="task-description">
+    <h4>Description</h4>
+    <textarea
+      [(ngModel)]="task.description"
+      class="form-control"
+      rows="4"
+    ></textarea>
+  </div>
+
+  <!-- Attachments Section -->
+  <div class="attachments-container">
+    <h3>📎 Attachments</h3>
+    <div
+      class="attachments-grid"
+      *ngIf="attachments.length > 0; else noAttachments"
+    >
+      <div *ngFor="let attachment of attachments" class="attachment-tile">
+        <i class="fas fa-file"></i>
+        <div class="attachment-info">
+          <p class="file-name">{{ attachment.fileName }}</p>
+          <button
+            class="btn btn-sm btn-primary"
+            (click)="downloadAttachment(attachment.id, attachment.fileName)"
+          >
+            ⬇ Download
+          </button>
+          <button
+            class="mx-1 btn btn-sm btn-danger"
+            (click)="deleteAttachment(attachment)"
+          >
+            🗑 Delete
+          </button>
+        </div>
+      </div>
+    </div>
+    <ng-template #noAttachments>
+      <p>No attachments available.</p>
+    </ng-template>
+    <div class="attachment-upload-card">
+      <input type="file" (change)="onFileSelected($event)" multiple />
+      <button class="btn btn-success" (click)="uploadAttachments()">
+        Upload Attachments
+      </button>
+    </div>
+  </div>
+
+  <!-- Comments Section -->
+  <div class="task-comments">
+    <h4>Comments</h4>
+    <div class="comment-list">
+      <div *ngFor="let comment of task.comments" class="comment-item">
+        <p>
+          <strong>{{ comment.createdBy }}</strong
+          >: {{ comment.comment }}
+        </p>
+        <small>{{ comment.createdAt | date : "medium" }}</small>
+      </div>
+    </div>
+    <textarea
+      [(ngModel)]="newComment"
+      class="form-control"
+      placeholder="Add a comment..."
+      rows="2"
+    ></textarea>
+    <button class="btn btn-success mt-1" (click)="addComment()">
+      Add Comment
+    </button>
+  </div>
+
+  <!-- Update and delete Task Button -->
+  <div class="task-actions">
+    <button class="btn btn-primary" (click)="updateTask()">Update Task</button>
+    <button class="btn btn-danger" (click)="deleteTask()">Delete Task</button>
+  </div>
+</div>

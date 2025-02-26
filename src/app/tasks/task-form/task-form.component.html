@@ -5,14 +5,27 @@
       <div *ngIf="step === 1" class="step">
         <h2 class="mb-4">Step 1: Basic Task Info</h2>
         <form [formGroup]="taskForm">
+          <!-- Titile -->
           <div class="mb-3">
             <label class="form-label">Title</label>
-            <input formControlName="title" class="form-control" placeholder="Enter title">
+            <input
+              formControlName="title"
+              class="form-control"
+              placeholder="Enter title"
+            />
           </div>
+
+          <!-- Description -->
           <div class="mb-3">
             <label class="form-label">Description</label>
-            <textarea formControlName="description" class="form-control" placeholder="Enter description"></textarea>
+            <textarea
+              formControlName="description"
+              class="form-control"
+              placeholder="Enter description"
+            ></textarea>
           </div>
+
+          <!-- Priority -->
           <div class="mb-3">
             <label class="form-label">Priority</label>
             <select formControlName="priority" class="form-select">
@@ -21,6 +34,8 @@
               <option value="HIGH">High</option>
             </select>
           </div>
+
+          <!-- Status -->
           <div class="mb-3">
             <label class="form-label">Status</label>
             <select formControlName="status" class="form-select">
@@ -29,49 +44,159 @@
               <option value="DONE">Done</option>
             </select>
           </div>
+
+          <!-- Due date -->
           <div class="mb-3">
             <label class="form-label">Due Date</label>
-            <input formControlName="dueDate" type="datetime" class="form-control">
+            <input
+              formControlName="dueDate"
+              type="datetime-local"
+              class="form-control"
+            />
           </div>
           <button (click)="nextStep()" class="btn btn-primary">Next</button>
         </form>
       </div>
 
-      <!-- Step 2: Assignees -->      
+      <!-- Step 2: Assign Task -->
       <div *ngIf="step === 2" class="step">
         <h2 class="mb-4">Step 2: Assign Task</h2>
-        <div *ngFor="let user of users" class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            [value]="user.id"
-            [checked]="selectedAssignees.includes(user.id)"
-            (change)="onAssigneeSelect(user.id)"
-          />
-          <label class="form-check-label">{{ user.username }}</label>
+        <div class="row">
+          <!-- All Users Section -->
+          <div class="col-md-5">
+            <h5>All Users</h5>
+            <div
+              cdkDropList
+              #allUsersList="cdkDropList"
+              [cdkDropListData]="allUsers"
+              [cdkDropListConnectedTo]="[selectedUsersList]"
+              (cdkDropListDropped)="onDrop($event)"
+              class="user-list"
+            >
+              <div *ngFor="let user of allUsers" cdkDrag class="user-item">
+                {{ user.username }}
+                <button
+                  (click)="moveToSelected(user)"
+                  class="btn btn-sm btn-outline-success float-end"
+                >
+                  <i class="fas fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Arrow Buttons (Optional) -->
+          <div
+            class="col-md-2 d-flex align-items-center justify-content-center"
+          >
+            <div class="d-grid gap-2">
+              <button
+                (click)="moveToSelected(allUsers[0])"
+                class="btn btn-outline-secondary"
+                [disabled]="allUsers.length === 0"
+              >
+                <i class="fas fa-arrow-right"></i>
+              </button>
+              <button
+                (click)="moveToAll(selectedUsers[0])"
+                class="btn btn-outline-secondary"
+                [disabled]="selectedUsers.length === 0"
+              >
+                <i class="fas fa-arrow-left"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Selected Users Section -->
+          <div class="col-md-5">
+            <h5>Selected Users</h5>
+            <div
+              cdkDropList
+              #selectedUsersList="cdkDropList"
+              [cdkDropListData]="selectedUsers"
+              [cdkDropListConnectedTo]="[allUsersList]"
+              (cdkDropListDropped)="onDrop($event)"
+              class="user-list"
+            >
+              <div *ngFor="let user of selectedUsers" cdkDrag class="user-item">
+                {{ user.username }}
+                <button
+                  (click)="moveToAll(user)"
+                  class="btn btn-sm btn-outline-danger float-end"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <button (click)="prevStep()" class="btn btn-secondary me-2">Back</button>
-        <button (click)="nextStep()" class="btn btn-primary">Next</button>
+        <div class="mt-4">
+          <button (click)="prevStep()" class="btn btn-secondary me-2">
+            Back
+          </button>
+          <button (click)="nextStep()" class="btn btn-primary">Next</button>
+        </div>
       </div>
 
-     
       <!-- Step 3: Attachments and Comments -->
       <div *ngIf="step === 3" class="step">
         <h2 class="mb-4">Step 3: Attachments and Comments</h2>
         <div class="mb-3">
           <label class="form-label">Attachments</label>
-          <input type="file" class="form-control" (change)="onFileSelected($event)" multiple>
+          <input
+            type="file"
+            class="form-control"
+            (change)="onFileSelected($event)"
+            multiple
+          />
         </div>
+
+        <!-- Comments -->
         <div class="mb-3">
           <label class="form-label">Comments</label>
-          <textarea [(ngModel)]="comments" class="form-control" placeholder="Enter comments"></textarea>
+          <div class="comment-section">
+            <!-- Display existing comments with a delete button -->
+            <div
+              *ngFor="let comment of comments; let i = index"
+              class="comment-item"
+            >
+              <p>{{ comment }}</p>
+              <button (click)="deleteComment(i)" class="btn btn-danger btn-sm">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </div>
+            <!-- Input for new comment -->
+            <textarea
+              class="form-control mb-2"
+              [(ngModel)]="newComment"
+              placeholder="Enter your comment"
+            ></textarea>
+            <button
+              (click)="addComment()"
+              class="btn btn-outline-primary btn-sm"
+            >
+              <i class="fas fa-plus"></i> Add New Comment
+            </button>
+          </div>
         </div>
+
+        <!-- Notifications -->
         <div class="mb-3">
           <label class="form-label">Enable Notifications</label>
-          <input type="checkbox" [(ngModel)]="notificationsEnabled" class="form-check-input">
+          <input
+            type="checkbox"
+            [(ngModel)]="notificationsEnabled"
+            class="form-check-input"
+          />
         </div>
-        <button (click)="prevStep()" class="btn btn-secondary me-2">Back</button>
-        <button (click)="submitTask()" class="btn btn-success">Create Task</button>
+
+        <!-- Buttons -->
+        <button (click)="prevStep()" class="btn btn-secondary me-2">
+          Back
+        </button>
+        <button (click)="submitTask()" class="btn btn-success">
+          Create Task
+        </button>
       </div>
     </div>
   </div>
