@@ -7,7 +7,7 @@ export interface TaskResponse {
     priority:string;
     status:string;
     dueDate: string|null;
-    createdById:string;
+    createdBy:string;
     assignees: string[];
     comments:CommentResponse[];
 }

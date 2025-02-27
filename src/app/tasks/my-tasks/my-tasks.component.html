@@ -58,7 +58,7 @@
               <strong>Assignees:</strong> {{ task.assignees.join(', ') }}
             </li>
             <li class="list-group-item">
-              <strong>Created By:</strong> {{ task.createdById }}
+              <strong>Created By:</strong> {{ task.createdBy }}
             </li>
             <li class="list-group-item">
               <strong>Status:</strong>
@@ -91,7 +91,10 @@
             <h6>Comments:</h6>
             <ul class="list-group">
               <li *ngFor="let comment of task.comments" class="list-group-item">
-                {{ comment }}
+                <p>
+                  <strong>{{ comment.createdBy }}</strong
+                  >: {{ comment.comment }}
+                </p>
               </li>
             </ul>
           </div>

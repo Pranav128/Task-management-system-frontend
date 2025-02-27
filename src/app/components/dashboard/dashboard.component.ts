@@ -1,5 +1,5 @@
 import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
 import { Observable } from 'rxjs';
@@ -16,7 +16,7 @@ import { TaskService } from '../../tasks/task.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
-export class DashboardComponent implements OnInit, AfterViewInit {
+export class DashboardComponent implements OnInit, OnDestroy  {
   tasks: any[] = []; // List of tasks fetched from the backend
   taskStatusData: any = {}; // Data for task status pie chart
   taskPriorityData: any = {}; // Data for task priority bar chart
@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   // Variables to store chart instances
   taskStatusChart: any;
   taskPriorityChart: any;
+  private chartsRendered: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -44,13 +45,14 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     Chart.register(...registerables); // Register Chart.js components
   }
 
-  ngAfterViewInit() {
-    this.user$.subscribe((user) => {
-      if (user) {
-        this.currentUser = user || undefined;
-        this.fetchDashboardData(); // Fetch data for the dashboard
-      }
-    });
+  ngOnDestroy() {
+    // Destroy charts when the component is destroyed
+    if (this.taskStatusChart) {
+      this.taskStatusChart.destroy();
+    }
+    if (this.taskPriorityChart) {
+      this.taskPriorityChart.destroy();
+    }
   }
 
   ngOnInit() {
@@ -108,6 +110,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   prepareChartData() {
+    if (this.chartsRendered) return; // Prevent multiple renderings
+
     // Prepare data for task status pie chart
     this.taskStatusData = this.tasks.reduce((acc, task) => {
       acc[task.status] = (acc[task.status] || 0) + 1;
@@ -123,6 +127,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     // Render charts
     this.renderTaskStatusChart();
     this.renderTaskPriorityChart();
+
+    this.chartsRendered = true; // Mark charts as rendered
   }
 
   renderTaskStatusChart() {
