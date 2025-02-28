@@ -82,8 +82,7 @@ export class TaskService {
   //download attachment by Attachment id and task id
   downloadAttachment(
     taskId: number,
-    attachmentId: string,
-    fileName: string
+    attachmentId: number
   ): Observable<any> {
     return this.http.get(
       `${this.apiUrl}/${taskId}/attachments/${attachmentId}`,

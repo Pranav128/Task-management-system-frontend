@@ -74,9 +74,9 @@ export class TaskDetailComponent implements OnInit {
     });
   }
 
-  downloadAttachment(attachmentId: string, fileName: string) {
+  downloadAttachment(attachmentId: number, fileName: string) {
     this.taskService
-      .downloadAttachment(Number(this.taskId), fileName, attachmentId)
+      .downloadAttachment(Number(this.taskId), Number(attachmentId))
       .subscribe({
         next: (blob) => {
           const a = document.createElement('a');
